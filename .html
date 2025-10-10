@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science for Everyone - K-12 Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #1a1d3a 0%, #2d4a7c 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="star" cx="50%" cy="50%"><stop offset="0%" style="stop-color:white;stop-opacity:1"/><stop offset="100%" style="stop-color:white;stop-opacity:0"/></radialGradient></defs><circle cx="100" cy="100" r="1.5" fill="url(%23star)"/><circle cx="300" cy="200" r="1" fill="url(%23star)"/><circle cx="500" cy="150" r="1.2" fill="url(%23star)"/><circle cx="700" cy="250" r="0.8" fill="url(%23star)"/><circle cx="900" cy="180" r="1.3" fill="url(%23star)"/><circle cx="1100" cy="220" r="1" fill="url(%23star)"/><circle cx="200" cy="400" r="1.1" fill="url(%23star)"/><circle cx="450" cy="450" r="0.9" fill="url(%23star)"/><circle cx="650" cy="500" r="1.4" fill="url(%23star)"/><circle cx="850" cy="420" r="1" fill="url(%23star)"/><circle cx="1050" cy="480" r="1.2" fill="url(%23star)"/></svg>'), linear-gradient(135deg, #1a1d3a 0%, #2d4a7c 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: left;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        .hero-content h2 {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+        
+        .hero-content a {
+            color: #ff6b35;
+            text-decoration: none;
+            border-bottom: 2px solid #ff6b35;
+            transition: opacity 0.3s;
+        }
+        
+        .hero-content a:hover {
+            opacity: 0.7;
+        }
+        
+        .progressions-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .progressions-section h2 {
+            font-size: 2.5rem;
+            color: #2d4a7c;
+            margin-bottom: 20px;
+        }
+        
+        .progressions-section p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .progressions-link {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .progressions-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .grade-bands {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .grade-bands h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2d4a7c;
+            margin-bottom: 60px;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+        
+        .card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #ff6b35;
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 2rem;
+            color: #2d4a7c;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .card-arrow {
+            font-size: 2rem;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 60px 40px;
+            max-width: 900px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideDown 0.4s;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #ff6b35;
+        }
+        
+        .modal-content h2 {
+            color: #2d4a7c;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .modal-content h3 {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content h4 {
+            color: #2d4a7c;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .modal-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content ul {
+            list-style-position: inside;
+            color: #555;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+        
+        .modal-content li {
+            margin-bottom: 10px;
+        }
+        
+        .definition-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b35;
+        }
+        
+        .resource-item {
+            background: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: border-color 0.3s;
+        }
+        
+        .resource-item:hover {
+            border-color: #ff6b35;
+        }
+        
+        .resource-item strong {
+            color: #2d4a7c;
+            font-size: 1.1rem;
+        }
+        
+        .modal-content a {
+            color: #ff6b35;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .modal-content a:hover {
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>About Our Coalition</h1>
+            <div class="hero-content">
+                <h2>Data Science for Everyone</h2>
+                <p>
+                    <strong>Data Science for Everyone</strong> is a coalition advancing data science education so that every 
+                    K-12 student is equipped with the data literacy skills needed to succeed in our modern 
+                    world. Equitable access to data science education is an opportunity to open doors to 
+                    higher education, high-paying careers, and an engaged community.
+                </p>
+                <p>
+                    Created by the <a href="https://voices.uchicago.edu/risc/" target="_blank">University of Chicago Center for RISC</a> 
+                    and organized in partnership with <a href="https://learningagency.org/" target="_blank">The Learning Agency</a> 
+                    and the <a href="https://concord.org/" target="_blank">Concord Consortium</a>, we support a growing community 
+                    that knows that the data revolution has transformed modern life and we need to prepare our students.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="progressions-section">
+        <div class="container">
+            <h2>K-12 Learning Progressions</h2>
+            <p>
+                Explore comprehensive learning progressions that guide data literacy and data science education 
+                from kindergarten through high school, building foundational skills that prepare students for 
+                the data-driven world.
+            </p>
+            <a href="https://datasciencelearning.org/" target="_blank" class="progressions-link">
+                Visit Learning Progressions →
+            </a>
+        </div>
+    </section>
+
+    <section class="grade-bands">
+        <div class="container">
+            <h2>Resources by Grade Level</h2>
+            <div class="cards-container">
+                <div class="card" onclick="openModal('k5')">
+                    <div class="card-content">
+                        <div class="card-icon">🎨</div>
+                        <h3>K-5</h3>
+                        <p>Elementary School Resources</p>
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="openModal('68')">
+                    <div class="card-content">
+                        <div class="card-icon">📊</div>
+                        <h3>6-8</h3>
+                        <p>Middle School Resources</p>
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="openModal('912')">
+                    <div class="card-content">
+                        <div class="card-icon">🎓</div>
+                        <h3>9-12</h3>
+                        <p>High School Resources</p>
+                        <div class="card-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- K-5 Modal -->
+    <div id="k5Modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('k5')">&times;</span>
+            <h2>K-5 Resources for Data Literacy and Data Science</h2>
+            
+            <div class="definition-box">
+                <h4>What is Data Literacy?</h4>
+                <p>Data literacy refers to the ability to read, understand, interpret, and communicate data or claims derived from data. In elementary education, data literacy involves teaching students how to iteratively question data and representations of data critically, including understanding their origins, limitations and potential biases.</p>
+            </div>
+
+            <h3>Sample Learning Progressions</h3>
+            <div class="resource-item">
+                <strong>K-2.A.1.2a:</strong> Recognize the importance of asking questions about how data were collected.
+            </div>
+            <div class="resource-item">
+                <strong>K-2.A.1.3a:</strong> Observe that data can have many different answers or results.
+            </div>
+            <div class="resource-item">
+                <strong>3-5.A.1.2a:</strong> Ask questions about how data are collected or considered.
+            </div>
+            <div class="resource-item">
+                <strong>3-5.A.1.2b:</strong> Understand that data is generated by people who make decisions about what and how to measure.
+            </div>
+
+            <h3>Curriculum and Lesson Resources</h3>
+            <ul>
+                <li><strong><a href="https://studio.code.org/catalog?grade=grade_1&grade=grade_2&grade=grade_3&grade=grade_4&grade=grade_5&grade=kindergarten&topic=data&topic=digital_literacy" target="_blank">Code.org</a>:</strong> K-5 Curriculum Catalog with courses, tutorials, and resources</li>
+                <li><strong><a href="https://www.youtube.com/watch?v=0H8awA3GBPg&list=PLNrrxHpJhC8m_ifiOWl1hquDmdgvcviOt" target="_blank">Crash Course Data Literacy</a>:</strong> 15-video series exploring data literacy fundamentals</li>
+                <li><strong>Data4Kids:</strong> <a href="https://www.urban.org/data4kids-virtually-teaching-kids-about-data-science" target="_blank">Project Homepage</a> and <a href="https://www.urban.org/data-stories" target="_blank">Data Stories</a> for grades 3-5</li>
+                <li><strong>Data Education in Schools:</strong> <a href="https://dataschools.education/data-education-resources/" target="_blank">Data Education Resources</a> and <a href="https://dataschools.education/resource/teach-data-literacy-a-guide-for-primary-teachers/" target="_blank">Teach Data Literacy Guide</a></li>
+                <li><strong>Phet Interactive Simulations:</strong> <a href="https://phet.colorado.edu/en/simulations/filter?levels=elementary-school&type=html,prototype" target="_blank">K-5 Simulations</a> including <a href="https://phet.colorado.edu/en/simulations/number-play" target="_blank">Number Play</a> and <a href="https://phet.colorado.edu/en/simulations/area-model-introduction" target="_blank">Area Model Introduction</a></li>
+                <li><strong><a href="https://slowrevealgraphs.com/resources-for-the-classroom/graphs-for-the-elementary-classroom/" target="_blank">Slow Reveal Graph</a>:</strong> Instructional routine promoting sensemaking about data</li>
+                <li><strong><a href="https://www.tableau.com/academic/data-for-kids" target="_blank">Tableau Data Kids</a>:</strong> Activities and visualizations for young learners</li>
+                <li><strong><a href="https://tuvalabs.com/tuvajr/?type=activities,datasets,datastory&order_by=-pub_date&show=all&filter_type=jr" target="_blank">Tuva Jr</a>:</strong> Data exploration tools for grades 3-5</li>
+                <li><strong>Youcubed:</strong> Data Science K-10 Big Ideas for <a href="https://www.youcubed.org/data-big-ideas/#grade_k" target="_blank">Kindergarten</a>, <a href="https://www.youcubed.org/data-big-ideas/#grade_1-2" target="_blank">Grades 1-2</a>, and <a href="https://www.youcubed.org/data-big-ideas/#grade_3-5" target="_blank">Grades 3-5</a></li>
+            </ul>
+
+            <h3>Implementation Guides</h3>
+            <ul>
+                <li><strong><a href="https://docs.google.com/document/d/1Yc37Wk_2Zg27Ner5yr4jPia5VksX057OS-Q5jSJKUxQ/edit?usp=sharing" target="_blank">K-5 Data Literacy Implementation Guide</a>:</strong> Comprehensive guide for implementing data literacy</li>
+                <li><strong><a href="https://www.datascience4everyone.org/teach-data-science" target="_blank">Teaching Data Science</a>:</strong> Resources for teaching data science across grade levels</li>
+            </ul>
+
+            <h3>Software, Apps and Online Tools</h3>
+            <ul>
+                <li><strong><a href="https://first8studios.org/gracieandfriends/datatoolbox.html" target="_blank">Preschool Data Toolbox</a>:</strong> Collect data, create graphs, and analyze findings</li>
+                <li><strong><a href="https://curiosity.sas.com/en/resources/datafly.html" target="_blank">DataFly</a>:</strong> Free resource for exploring data with students</li>
+            </ul>
+
+            <h3>Articles and Webinars</h3>
+            <ul>
+                <li><a href="https://hdsr.mitpress.mit.edu/pub/p9iemahk/release/1" target="_blank">Transforming Curriculum and Building Capacity in K–12 Data Science Education</a></li>
+                <li><a href="https://hdsr.mitpress.mit.edu/pub/wkhg4f7a/release/3" target="_blank">Data Science for Everyone Starts in Kindergarten</a></li>
+                <li><a href="https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-023-00397-9" target="_blank">Learning data science in elementary school mathematics</a></li>
+                <li><a href="https://www.datascience4everyone.org/past-events/data-literacy-for-young-learners%3A-demystifying-k-5-data-science" target="_blank">Webinar: Data Literacy for Young Learners</a></li>
+            </ul>
+
+            <h3>Books</h3>
+            <ul>
+                <li><a href="https://www.amazon.com/Florence-Data-Scientist-Magical-Bookmobile/dp/1735971901" target="_blank">Florence the Data Scientist and Her Magical Bookmobile</a></li>
+            </ul>
+
+            <p><em>For the comprehensive listing of resources and learning progressions, visit <a href="https://datasciencelearning.org/" target="_blank">datasciencelearning.org</a></em></p>
+        </div>
+    </div>
+
+    <!-- 6-8 Modal -->
+    <div id="68Modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('68')">&times;</span>
+            <h2>6-8 Resources for Data Literacy and Data Science</h2>
+            
+            <div class="definition-box">
+                <h4>What is Data Science?</h4>
+                <p>Data science education refers to instruction focused on systematic processes, analytical techniques, and utilization of appropriate technologies to gain knowledge from data. In middle school, it equips students with introductory skills and problem-solving necessary to collect, analyze, interpret, and communicate data to answer investigative questions.</p>
+            </div>
+
+            <h3>Sample Learning Progressions</h3>
+            <div class="resource-item">
+                <strong>6-8.A.1.1a:</strong> Analyze the way categorical and numeric data shapes its interpretation and analysis.
+            </div>
+            <div class="resource-item">
+                <strong>6-8.A.1.1b:</strong> Recognize that numerical variables may be either discrete or continuous.
+            </div>
+
+            <h3>Curriculum and Lesson Resources</h3>
+            <ul>
+                <li><strong>Bootstrapworld:</strong> <a href="https://www.bootstrapworld.org/materials/data-science/Bootstrap-DataScience.pdf" target="_blank">One-page summary</a> and <a href="https://www.bootstrapworld.org/materials/fall2023/en-us/courses/data-science/resources/pages/implementation-options.html" target="_blank">Implementation Models</a> for Data Science</li>
+                <li><strong><a href="https://studio.code.org/catalog?grade=grade_6&grade=grade_7&grade=grade_8&topic=data&topic=digital_literacy" target="_blank">Code.org</a>:</strong> 6-8 Curriculum Catalog</li>
+                <li><strong><a href="https://learn.microsoft.com/en-us/training/educator-center/instructor-materials/introduction-data-science-process" target="_blank">Club for the Future</a>:</strong> Data science process for rocket launches</li>
+                <li><strong><a href="https://www.youtube.com/watch?v=0H8awA3GBPg&list=PLNrrxHpJhC8m_ifiOWl1hquDmdgvcviOt" target="_blank">Crash Course Data Literacy</a>:</strong> 15-video series on data literacy fundamentals</li>
+                <li><strong><a href="https://about.dataclassroom.com/" target="_blank">DataClassroom</a>:</strong> Lesson plans with datasets and internal platform</li>
+                <li><strong>Data4Kids:</strong> <a href="https://www.urban.org/data4kids-virtually-teaching-kids-about-data-science" target="_blank">Project Homepage</a> and <a href="https://www.urban.org/data-stories" target="_blank">Data Stories</a> for grades 6-8</li>
+                <li><strong>Phet Interactive Simulations:</strong> <a href="https://phet.colorado.edu/en/simulations/filter?subjects=mathconcepts&levels=middle-school&type=html,prototype" target="_blank">6-8 Math Simulations</a> including <a href="https://phet.colorado.edu/en/simulations/center-and-variability" target="_blank">Center and Variability</a> and <a href="https://phet.colorado.edu/en/simulations/plinko-probability" target="_blank">Plinko Probability</a></li>
+                <li><strong><a href="https://slowrevealgraphs.com/" target="_blank">Slow Reveal Graph</a>:</strong> Scaffolded visuals and discourse for data sensemaking</li>
+                <li><strong><a href="https://www.tableau.com/academic/teaching" target="_blank">Tableau for Teaching</a>:</strong> Free data skills teaching across disciplines</li>
+                <li><strong>Tuva Labs:</strong> <a href="https://tuvalabs.com/content/?type=datastory,activities&order_by=-pub_date&show=all&filter=%7B%22Grade%206%22%3A%5B%22Fractions-Percent-Ratios%22%2C%22Dot%20Plots%22%2C%22Box%20Plots%22%5D%2C%22Grade%207%22%3A%5B%22Percent%20%26%20Constant%20of%20Proportionality%22%2C%22Data%20Distributions%22%2C%22Random%20Sampling%22%5D%2C%22Grade%208%22%3A%5B%22Scatter%20Plots%22%2C%22Two-Way%20Tables%22%2C%22Linear%20Functions%22%5D%7D&filter_type=math" target="_blank">Math Focused Lessons</a> and <a href="https://tuvalabs.com/content/?type=datastory,activities&order_by=-pub_date&show=all&filter=%7B%22Grade%20Band%22%3A%5B%22GRADES%206-8%22%5D%7D&filter_type=science" target="_blank">Science Focused Lessons</a></li>
+                <li><strong>Youcubed:</strong> Data Science Big Ideas for <a href="https://www.youcubed.org/data-big-ideas/#grade_6-7" target="_blank">Grades 6-7</a> and <a href="https://www.youcubed.org/data-big-ideas/#grade_8" target="_blank">Grade 8</a></li>
+            </ul>
+
+            <h3>Implementation Guides</h3>
+            <ul>
+                <li><strong><a href="https://www.datascience4everyone.org/teach-data-science" target="_blank">Teaching Data Science</a>:</strong> Resources for teaching data science across grade levels</li>
+            </ul>
+
+            <h3>Software, Apps and Online Tools</h3>
+            <ul>
+                <li><strong><a href="https://codap.concord.org/" target="_blank">CODAP</a>:</strong> Common Online Data Analysis Platform for grades 6-14</li>
+                <li><strong><a href="https://curiosity.sas.com/en/resources/datafly.html" target="_blank">DataFly</a>:</strong> SAS DataFly for real-time data exploration</li>
+            </ul>
+
+            <h3>Articles</h3>
+            <ul>
+                <li><a href="https://hdsr.mitpress.mit.edu/pub/p9iemahk/release/1" target="_blank">Transforming Curriculum and Building Capacity in K–12 Data Science Education</a></li>
+                <li><a href="https://www.ocf.berkeley.edu/~mwilkers/wp-content/uploads/2019/07/2019TISE_EricWilkFinzReis.pdf" target="_blank">Data Moves</a></li>
+            </ul>
+
+            <h3>Books</h3>
+            <ul>
+                <li><a href="http://www.dear-data.com/" target="_blank">Dear Data</a></li>
+            </ul>
+
+            <p><em>For the comprehensive listing of resources and learning progressions, visit <a href="https://datasciencelearning.org/" target="_blank">datasciencelearning.org</a></em></p>
+        </div>
+    </div>
+
+    <!-- 9-12 Modal -->
+    <div id="912Modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('912')">&times;</span>
+            <h2>9-12 Resources for Data Science</h2>
+            
+            <div class="definition-box">
+                <h4>Data Science in High School</h4>
+                <p>Data science education in high school encompasses systematic processes, analytical techniques, and technologies to gain knowledge from data. This includes exploratory data analysis, visualization, modeling, data ethics, machine learning, artificial intelligence, and professional practices of statistics and data science.</p>
+            </div>
+
+            <h3>Sample Learning Progressions</h3>
+            <div class="resource-item">
+                <strong>9-10.A.1.1a:</strong> Define "qualitative" and "quantitative" and understand how they relate to categorical and numeric data.
+            </div>
+            <div class="resource-item">
+                <strong>9-10.A.1.1b:</strong> Understand that forms of media can be represented in quantitative and qualitative terms.
+            </div>
+            <div class="resource-item">
+                <strong>11-12.A.1.1a:</strong> Recognize that multiple types of data can provide valuable insights into the same inquiry.
+            </div>
+
+            <h3>Curriculum and Lesson Resources</h3>
+            <ul>
+                <li><strong><a href="https://aws.amazon.com/education/aws-spark/" target="_blank">Amazon Web Services Spark</a>:</strong> Cloud computing tools and resources</li>
+                <li><strong>Bootstrapworld:</strong> <a href="https://www.bootstrapworld.org/materials/data-science/Bootstrap-DataScience.pdf" target="_blank">One-page summary</a> and <a href="https://www.bootstrapworld.org/materials/fall2023/en-us/courses/data-science/resources/pages/implementation-options.html" target="_blank">Implementation Models</a> for Data Science</li>
+                <li><strong><a href="https://studio.code.org/catalog?grade=grade_10&grade=grade_11&grade=grade_12&grade=grade_9&topic=artificial_intelligence&topic=data&topic=digital_literacy" target="_blank">Code.org</a>:</strong> 9-12 Curriculum Catalog</li>
+                <li><strong><a href="https://learn.microsoft.com/en-us/training/educator-center/instructor-materials/introduction-data-science-process" target="_blank">Club for the Future</a>:</strong> Data science process for rocket launches</li>
+                <li><strong><a href="https://www.youtube.com/watch?v=0H8awA3GBPg&list=PLNrrxHpJhC8m_ifiOWl1hquDmdgvcviOt" target="_blank">Crash Course Data Literacy</a>:</strong> 15-video series</li>
+                <li><strong><a href="https://goopenva.org/groups/data-science-project-based-learning-codeva/686/?__hub_id=20" target="_blank">CodeVA</a>:</strong> Project-based learning with CODAP and Python</li>
+                <li><strong><a href="https://coursekata.org/" target="_blank">CourseKata</a>:</strong> Interactive online textbook for statistics and data science</li>
+                <li><strong><a href="https://www.data8.org/" target="_blank">Data8</a>:</strong> UC Berkeley Foundations of Data Science course</li>
+                <li><strong><a href="https://about.dataclassroom.com/" target="_blank">DataClassroom</a>:</strong> Lesson plans with datasets</li>
+                <li><strong>Data4Kids:</strong> <a href="https://www.urban.org/data4kids-virtually-teaching-kids-about-data-science" target="_blank">Project Homepage</a> and <a href="https://www.urban.org/data-stories" target="_blank">Data Stories</a> for grades 9-12</li>
+                <li><strong><a href="https://www.introdatascience.org/" target="_blank">Introduction to Data Science (IDS)</a>:</strong> High school materials and professional development</li>
+                <li><strong><a href="https://slowrevealgraphs.com/" target="_blank">Slow Reveal Graph</a>:</strong> Instructional routine for data sensemaking</li>
+                <li><strong>Tuva Labs:</strong> <a href="https://tuvalabs.com/content/?type=datastory,activities&order_by=-pub_date&show=all&filter=%7B%22Grades%209-12%22%3A%5B%22One-Variable%20Statistics%22%2C%22Linear%20Models%22%5D%7D&filter_type=math" target="_blank">Math</a>, <a href="https://tuvalabs.com/content/?type=datastory,activities&order_by=-pub_date&show=all&filter=%7B%22Grade%20Band%22%3A%5B%22GRADES%209-12%22%5D%7D&filter_type=science" target="_blank">Science</a>, <a href="https://tuvalabs.com/collections/science-hs-biology/" target="_blank">Biology</a>, <a href="https://tuvalabs.com/collections/science-hs-chemistry/" target="_blank">Chemistry</a>, and <a href="https://tuvalabs.com/collections/science-hs-physics/" target="_blank">Physics</a> lessons</li>
+                <li><strong><a href="https://www.tableau.com/academic/teaching" target="_blank">Tableau for Teaching</a>:</strong> Free data skills teaching</li>
+                <li><strong>Youcubed:</strong> <a href="https://www.youcubed.org/data-big-ideas/#grade_8-10" target="_blank">Grades 9-10 Big Ideas</a> and <a href="https://hsdatascience.youcubed.org/" target="_blank">High School Data Science Course</a></li>
+            </ul>
+
+            <h3>Implementation Guides</h3>
+            <ul>
+                <li><strong><a href="https://www.datascience4everyone.org/teach-data-science" target="_blank">Teaching Data Science</a>:</strong> Resources for teaching data science across grade levels</li>
+            </ul>
+
+            <h3>Software, Apps and Online Tools</h3>
+            <ul>
+                <li><strong><a href="https://codap.concord.org/" target="_blank">CODAP</a>:</strong> Common Online Data Analysis Platform</li>
+            </ul>
+
+            <h3>Articles</h3>
+            <ul>
+                <li><a href="https://hdsr.mitpress.mit.edu/pub/p9iemahk/release/1" target="_blank">Transforming Curriculum and Building Capacity in K–12 Data Science Education</a></li>
+                <li><a href="https://www.ocf.berkeley.edu/~mwilkers/wp-content/uploads/2019/07/2019TISE_EricWilkFinzReis.pdf" target="_blank">Data Moves</a></li>
+            </ul>
+
+            <h3>Books</h3>
+            <ul>
+                <li><a href="https://inferentialthinking.com/chapters/intro.html" target="_blank">Computational and Inferential Thinking: The Foundations of Data Science</a></li>
+                <li><a href="http://www.dear-data.com/" target="_blank">Dear Data</a></li>
+                <li><a href="https://mdsr-book.github.io/mdsr3e/" target="_blank">Modern Data Science with R</a></li>
+                <li><a href="https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815" target="_blank">Weapons of Math Destruction</a></li>
+            </ul>
+
+            <p><em>For the comprehensive listing of resources and learning progressions, visit <a href="https://datasciencelearning.org/" target="_blank">datasciencelearning.org</a></em></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(grade) {
+            document.getElementById(grade + 'Modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(grade) {
+            document.getElementById(grade + 'Modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
